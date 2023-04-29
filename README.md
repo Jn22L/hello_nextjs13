@@ -1,9 +1,8 @@
 ## nextjs13 게시판 만들기
 
-front/back : Next.js Full Stack
-db : mongodb, mariadb
-
-DB설정: .env.local (commit 제외)
+- front/back : Next.js Full Stack
+- db : mongodb, mariadb
+- DB설정: .env.local (commit 제외)
 
 ## 문제
 
