@@ -1,4 +1,4 @@
-## nextjs13 게시판 만들기
+## Next.js 13 게시판 만들기
 
 - front/back : Next.js Full Stack
 - db : mongodb, mariadb
