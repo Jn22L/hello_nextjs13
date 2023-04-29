@@ -1,4 +1,4 @@
-import queryPromise from "../lib/mariadb.js";
+import queryPromise from "@/lib/mariadb.js";
 
 export default async function Home() {
   let queryString = "SELECT * FROM HJ_BOARD";

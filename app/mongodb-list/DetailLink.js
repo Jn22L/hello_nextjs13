@@ -1,14 +1,15 @@
 "use client";
 
-import { useRouter, usePathname, useSearchParams, useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { usePathname, useSearchParams, useParams } from "next/navigation";
 
 export default function DetailLink(props) {
   let router = useRouter(); // client component 에서만 사용가능
   // 아래 기능도 있음 - 나중에 알아보자
   let a = usePathname();
   let b = useSearchParams();
-  let c = useParams();
-  console.log(c);
+  // const params = useParams(); // TypeError: (0 , next_navigation__WEBPACK_IMPORTED_MODULE_1__.useParams) is not a function
+
   return (
     <button
       onClick={() => {
