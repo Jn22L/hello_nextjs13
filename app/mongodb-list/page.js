@@ -16,7 +16,11 @@ export default async function List() {
           <Link href={`/mongodb-detail/${row._id}`}>
             <h4>{row.title}</h4>
           </Link>
-          <DetailLink url={`/mongodb-detail/${row._id}`} />
+          <Link href={`/mongodb-edit/${row._id}`}>✏️</Link>
+          {
+            // DataLink 예제는 주석(client component 에서 useRouter 사용하여 이동해보기)
+            // <DetailLink url={`/mongodb-detail/${row._id}`} />
+          }
           <p>{row.content}</p>
         </div>
       ))}
