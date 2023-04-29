@@ -1,15 +1,19 @@
-## nextjs13 배포 테스트
+## nextjs13 게시판 만들기
 
-DB(mariadb)설정: .env.local (commit 제외)
+front/back : Next.js Full Stack
+db : mongodb, mariadb
+
+DB설정: .env.local (commit 제외)
 
 ## 문제
 
 1. app/lib 접근이 안되는 문제
-2. 하위 페이지에서 root 접근시 @/ 가 안먹는 문제 : jsconfig.json 변경하여 해결
+2. 하위 페이지에서 root 접근시 @/ 가 안먹는 문제
 
-jsconfig.json 설정
+   -> 1,2 번 모두 jsconfig.json 절대경로 설정하여 해결
 
 ```
+// jsconfig.json 절대경로 설정하기
 {
   "compilerOptions": {
     "baseUrl": ".",
