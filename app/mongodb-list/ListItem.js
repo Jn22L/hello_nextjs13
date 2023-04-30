@@ -23,7 +23,11 @@ export default function ListItem({ result }) {
             // <DetailLink url={`/mongodb-detail/${row._id}`} />
           }
           <span
+            style={{ cursor: "pointer" }}
             onClick={(e) => {
+              if (!confirm("삭제할까요?")) {
+                return;
+              }
               fetch("/api/post/delete", { method: "DELETE", body: JSON.stringify({ _id: row._id }) })
                 .then((r) => {
                   if (r.status == 200) {
@@ -49,6 +53,14 @@ export default function ListItem({ result }) {
             }}
           >
             🗑️
+          </span>
+          <span
+            style={{ cursor: "pointer" }}
+            onClick={(e) => {
+              e.target.parentElement.style.background = e.target.parentElement.style.background === "white" ? "beige" : "white";
+            }}
+          >
+            ✔️
           </span>
           <p>{row.content}</p>
         </div>
