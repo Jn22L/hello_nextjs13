@@ -40,7 +40,7 @@ export default function ListItem({ result }) {
                     e.target.parentElement.style.display = "none";
                   }, 1000);
                   //router.push("/mongodb-list");
-                  router.refresh();
+                  //router.refresh();
                 })
                 .catch((error) => {
                   //인터넷문제 등으로 실패시 실행할코드
