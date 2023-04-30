@@ -2,6 +2,9 @@ import Link from "next/link.js";
 import { connectDB } from "@/lib/mongodb.js";
 import DetailLink from "./DetailLink";
 import ListItem from "./ListItem";
+
+export const dynamic = "force-dynamic";
+
 export default async function List() {
   const db = (await connectDB).db("forum");
   //await db.collection("post").getPlanCache().clear(); // Removes all cached query plans // 에러남
