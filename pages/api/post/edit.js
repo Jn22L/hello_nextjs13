@@ -1,8 +1,8 @@
 import { connectDB } from "@/lib/mongodb.js";
 import { ObjectId } from "mongodb";
+
 export default async function handler(req, res) {
   if (req.method == "POST") {
-    console.log(req.body);
     if (req.body.title === "") {
       return res.status(500).json("제목을 입력해 주세요.");
     }

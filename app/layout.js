@@ -16,7 +16,7 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   let session = await getServerSession(authOptions);
-  console.log(session);
+  //console.log(session);
   //console.log(session.user.name);
 
   return (
@@ -27,9 +27,9 @@ export default async function RootLayout({ children }) {
             LightHappyJ
           </Link>
           <Link href="/mongodb-list">글목록</Link>
-          <Link href="/mongodb-write">글작성</Link>
           {session ? (
             <span>
+              <Link href="/mongodb-write">글작성</Link>
               {session.user.name}
               <LogoutBtn />
             </span>
