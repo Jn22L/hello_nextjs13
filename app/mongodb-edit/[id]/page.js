@@ -14,7 +14,7 @@ export default async function Edit({ params, searchParams }) {
         <input name="title" defaultValue={result.title}></input>
         <input name="content" defaultValue={result.content}></input>
         <input style={{ display: "none" }} name="_id" defaultValue={result._id.toString()}></input>
-        <button type="submit">버튼</button>
+        <button type="submit">저장</button>
       </form>
     </div>
   );
