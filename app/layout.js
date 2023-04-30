@@ -17,7 +17,8 @@ export default function RootLayout({ children }) {
           <Link href="/" className="logo">
             LightHappyJ
           </Link>
-          <Link href="/mongodb-list">List</Link>
+          <Link href="/mongodb-list">글목록</Link>
+          <Link href="/mongodb-write">글작성</Link>
         </div>
         {children}
       </body>
