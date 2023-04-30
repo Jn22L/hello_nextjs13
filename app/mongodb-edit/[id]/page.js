@@ -4,6 +4,7 @@ import { ObjectId } from "mongodb";
 
 export default async function Edit({ params, searchParams }) {
   const db = (await connectDB).db("forum");
+  console.log(params);
   let result = await db.collection("post").findOne({ _id: new ObjectId(params.id) });
 
   return (
