@@ -55,11 +55,10 @@ export default function ListItem({ result }) {
             🗑️
           </span>
           <span
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", display: "inline-block", width: "80%", textAlign: "right" }}
             onClick={(e) => {
               let curBg = e.target.parentElement.style.background;
-              console.log("현재 백그라운드:", e.target.parentElement, curBg);
-              e.target.parentElement.style.background = curBg === "white" || curBg === "" ? "beige" : "white";
+              e.target.parentElement.style.background = curBg === "white" || curBg === "" ? "#FFA500" : "white";
             }}
           >
             ✔️
