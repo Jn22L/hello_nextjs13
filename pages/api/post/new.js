@@ -1,6 +1,12 @@
 import { connectDB } from "@/lib/mongodb.js";
+import { authOptions } from "/pages/api/auth/[...nextauth].js";
+import { getServerSession } from "next-auth";
 
 export default async function handler(req, res) {
+  let session = await getServerSession(req, res, authOptions);
+  if (session !== null) {
+    req.body.author = session.user.email;
+  }
   if (req.method == "POST") {
     if (req.body.title === "") {
       return res.status(500).json("제목을 입력해 주세요.");

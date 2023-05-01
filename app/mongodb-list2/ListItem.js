@@ -24,7 +24,7 @@ export default function ListItem({ result }) {
           }
           <span
             onClick={(e) => {
-              fetch("/api/post/delete", { method: "DELETE", body: JSON.stringify({ _id: row._id }) })
+              fetch("/api/post/delete", { method: "DELETE", body: JSON.stringify({ _id: row._id, author: 1 }) })
                 .then((r) => {
                   if (r.status == 200) {
                     return r.json();
