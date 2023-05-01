@@ -22,23 +22,16 @@ export default function ListItem({ result, session }) {
                   return;
                 }
                 fetch("/api/post/delete", { method: "DELETE", body: JSON.stringify({ _id: row._id, author: row.author ?? "" }) })
-                  .then((r) => {
-                    if (r.status == 200) {
-                      return r.json();
-                    } else {
-                      //서버가 에러코드전송시 실행할코드
-                      console.log("에러", r.status);
-                      //reject("에러 발생!" + r.json());
-                      //throw new Error("에러 발생!" + r.json());
-                      return r.json();
+                  .then((res) => {
+                    if (res.status !== 200) {
+                      throw new Error("서버에러발생");
                     }
+                    return res.json();
                   })
                   .then((result) => {
                     //성공시 실행할코드
-                    alert(result);
-
-                    // TODO : 에러처러 정리필요(꼬이네 이거)
-                    if (result !== "자신의 글만 삭제가능 합니다.") {
+                    alert(result.resMsg);
+                    if (result.resTitle === "OK") {
                       e.target.parentElement.style.opacity = 0;
                       setTimeout(() => {
                         e.target.parentElement.style.display = "none";
