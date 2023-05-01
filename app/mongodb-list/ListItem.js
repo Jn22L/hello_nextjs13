@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 export default function ListItem({ result, session }) {
   let router = useRouter(); // client component 에서만 사용가능
 
-  async function apiPostDelete(row) {
+  async function fetchApiPostDelete(row) {
     const response = await fetch("/api/post/delete", { method: "DELETE", body: JSON.stringify({ _id: row._id, author: row.author ?? "" }) });
     const json = await response.json();
     if (!response.ok) {
@@ -15,7 +15,7 @@ export default function ListItem({ result, session }) {
   }
 
   function handleDelete(e, row) {
-    apiPostDelete(row)
+    fetchApiPostDelete(row)
       .then((json) => {
         alert(json.resMsg);
         e.target.parentElement.style.opacity = 0;
