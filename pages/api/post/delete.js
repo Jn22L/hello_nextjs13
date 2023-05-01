@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   if (session !== null) {
     if (session.user.email !== author) {
       console.log("자신의 글만 삭제가능 합니다");
-      return res.status(200).json({ resTitle: "삭제권한없음", resMsg: "자신의 글만 삭제가능 합니다." });
+      return res.status(500).json({ resTitle: "삭제권한없음", resMsg: "자신의 글만 삭제가능 합니다." });
     }
   } else {
     return res.status(200).json({ resTitle: "로그인사용자가아님", resMsg: "자신의 글만 삭제가능 합니다." });

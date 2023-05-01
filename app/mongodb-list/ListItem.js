@@ -5,6 +5,29 @@ import { useRouter } from "next/navigation";
 export default function ListItem({ result, session }) {
   let router = useRouter(); // client component 에서만 사용가능
 
+  async function apiPostDelete(row) {
+    const response = await fetch("/api/post/delete", { method: "DELETE", body: JSON.stringify({ _id: row._id, author: row.author ?? "" }) });
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(JSON.stringify(json));
+    }
+    return json;
+  }
+
+  function handleDelete(e, row) {
+    apiPostDelete(row)
+      .then((json) => {
+        alert(json.resMsg);
+        e.target.parentElement.style.opacity = 0;
+        setTimeout(() => {
+          e.target.parentElement.style.display = "none";
+        }, 1000);
+      })
+      .catch((error) => {
+        alert(JSON.parse(error.message).resMsg);
+      });
+  }
+
   console.log("ListItem.result", result);
   return (
     <div className="list-bg">
@@ -15,37 +38,7 @@ export default function ListItem({ result, session }) {
           </Link>
           {session && <Link href={`/mongodb-edit/${row._id}`}>✏️</Link>}
           {session && (
-            <span
-              style={{ cursor: "pointer" }}
-              onClick={(e) => {
-                if (!confirm("삭제할까요?")) {
-                  return;
-                }
-                fetch("/api/post/delete", { method: "DELETE", body: JSON.stringify({ _id: row._id, author: row.author ?? "" }) })
-                  .then((res) => {
-                    if (res.status !== 200) {
-                      throw new Error("서버에러발생");
-                    }
-                    return res.json();
-                  })
-                  .then((result) => {
-                    //성공시 실행할코드
-                    alert(result.resMsg);
-                    if (result.resTitle === "OK") {
-                      e.target.parentElement.style.opacity = 0;
-                      setTimeout(() => {
-                        e.target.parentElement.style.display = "none";
-                      }, 1000);
-                    }
-                    //router.push("/mongodb-list");
-                    //router.refresh();
-                  })
-                  .catch((error) => {
-                    console.log("catch ", error);
-                    //인터넷문제 등으로 실패시 실행할코드
-                  });
-              }}
-            >
+            <span style={{ cursor: "pointer" }} onClick={(e) => handleDelete(e, row)}>
               🗑️
             </span>
           )}
