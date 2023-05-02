@@ -1,5 +1,6 @@
 import { connectDB } from "@/lib/mongodb.js";
 import { ObjectId } from "mongodb";
+import Comment from "./Comment";
 
 export default async function Detail({ params, searchParams }) {
   const db = (await connectDB).db("forum");
@@ -10,6 +11,7 @@ export default async function Detail({ params, searchParams }) {
       <h4>상세페이지임</h4>
       <h4>{result.title}</h4>
       <p>{result.content}</p>
+      <Comment parent={params.id} />
     </div>
   );
 }
