@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   let session = await getServerSession(req, res, authOptions);
   let param = JSON.parse(req.body);
   let author = param.author === undefined ? "" : param.author;
-  console.log("세션:", session);
+  console.log("delete세션:", session);
   console.log("삭제파람 param:", param);
   console.log("삭제 author author:", author);
   if (session !== null) {

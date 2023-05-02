@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 export default async function List() {
   let session = await getServerSession(authOptions);
-  console.log("세션:", session);
+  console.log("list세션:", session);
 
   const db = (await connectDB).db("forum");
   //await db.collection("post").getPlanCache().clear(); // Removes all cached query plans // 에러남

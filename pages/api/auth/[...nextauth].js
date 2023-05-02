@@ -3,6 +3,7 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
+import bcryptjs from "bcryptjs";
 
 export const authOptions = {
   providers: [
@@ -28,7 +29,7 @@ export const authOptions = {
           console.log("해당 이메일은 없음");
           return null;
         }
-        const pwcheck = await bcrypt.compare(credentials.password, user.password);
+        const pwcheck = await bcryptjs.compare(credentials.password, user.password);
         if (!pwcheck) {
           console.log("비번틀림");
           return null;
