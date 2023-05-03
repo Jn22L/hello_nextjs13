@@ -5,13 +5,21 @@ import Comment from "./Comment";
 export default async function Detail({ params, searchParams }) {
   const db = (await connectDB).db("forum");
   let result = await db.collection("post").findOne({ _id: new ObjectId(params.id) });
+  let comments = await db
+    .collection("comment")
+    .find({ parentId: new ObjectId(params.id) })
+    .toArray();
+
+  console.log("댓글목록 parentId:", params.id);
+  console.log("댓글목록 result :", result);
+  console.log("댓글목록 comments:", comments);
 
   return (
     <div>
       <h4>상세페이지임</h4>
       <h4>{result.title}</h4>
       <p>{result.content}</p>
-      <Comment parent={params.id} />
+      <Comment parentId={params.id} comments={comments} />
     </div>
   );
 }
