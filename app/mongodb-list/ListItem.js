@@ -1,21 +1,12 @@
 "use client";
 import Link from "next/link.js";
-import { useRouter } from "next/navigation";
+import { fetchJson } from "@/util/nj-common";
 
 export default function ListItem({ result, session }) {
-  let router = useRouter(); // client component 에서만 사용가능
-
-  async function fetchApiPostDelete(row) {
-    const response = await fetch("/api/post/delete", { method: "DELETE", body: JSON.stringify({ _id: row._id, author: row.author ?? "" }) });
-    const json = await response.json();
-    if (!response.ok) {
-      throw new Error(JSON.stringify(json));
-    }
-    return json;
-  }
+  const spanStyle = { cursor: "pointer", display: "inline-block", width: "80%", textAlign: "right", }; // prettier-ignore
 
   function handleDelete(e, row) {
-    fetchApiPostDelete(row)
+    fetchJson("/api/post/delete", { method: "DELETE", body: JSON.stringify({ _id: row._id, author: row.author ?? "" }) })
       .then((json) => {
         alert(json.resMsg);
         e.target.parentElement.style.opacity = 0;
@@ -28,29 +19,19 @@ export default function ListItem({ result, session }) {
       });
   }
 
-  console.log("ListItem.result", result);
+  function handleOnClick(e) {
+    let curBg = e.target.parentElement.style.background;
+    e.target.parentElement.style.background = curBg === "white" || curBg === "" ? "#FFA500" : "white";
+  }
+
   return (
     <div className="list-bg">
       {result.map((row, idx) => (
         <div className="list-item" key={idx}>
-          <Link href={`/mongodb-detail/${row._id.toString()}`}>
-            <h4>{row.title}</h4>
-          </Link>
+          {/* prettier-ignore */ <Link href={`/mongodb-detail/${row._id.toString()}`}><h4>{row.title}</h4></Link>}
           {session && <Link href={`/mongodb-edit/${row._id}`}>✏️</Link>}
-          {session && (
-            <span style={{ cursor: "pointer" }} onClick={(e) => handleDelete(e, row)}>
-              🗑️
-            </span>
-          )}
-          <span
-            style={{ cursor: "pointer", display: "inline-block", width: "80%", textAlign: "right" }}
-            onClick={(e) => {
-              let curBg = e.target.parentElement.style.background;
-              e.target.parentElement.style.background = curBg === "white" || curBg === "" ? "#FFA500" : "white";
-            }}
-          >
-            ✔️
-          </span>
+          {/* prettier-ignore */ session && (<span style={{ cursor: "pointer" }} onClick={(e) => handleDelete(e, row)}>🗑️</span>)}
+          {/* prettier-ignore */ <span style={{ spanStyle }} onClick={(e) => {(e) => handleOnClick(e);}}>✔️</span>}
           <p>{row.content}</p>
         </div>
       ))}

@@ -10,10 +10,6 @@ export default async function Detail({ params, searchParams }) {
     .find({ parentId: new ObjectId(params.id) })
     .toArray();
 
-  console.log("댓글목록 parentId:", params.id);
-  console.log("댓글목록 result :", result);
-  console.log("댓글목록 comments:", comments);
-
   return (
     <div>
       <h4>상세페이지임</h4>
