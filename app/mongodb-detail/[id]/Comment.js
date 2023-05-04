@@ -1,23 +1,22 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 
-export default function Comment({ parentId, comments }) {
-  let [commentList, setCommentList] = useState([]);
-  let [comment, setComment] = useState("");
+async function fetchJson(url, option) {
+  const response = await fetch(url, option);
+  const json = await response.json();
+  if (!response.ok) {
+    throw new Error(JSON.stringify(json));
+  }
+  return json;
+}
+
+export default function Comment({ parentId }) {
+  const [commentList, setCommentList] = useState([]);
+  const [comment, setComment] = useState("");
   const inputRef = useRef();
 
-  console.log("댓글의 parentID:", parentId);
-
   function selectCommentList(pObj) {
-    async function fetchSelect() {
-      const response = await fetch(`/api/comment/list?parentId=${pObj.parentId}`);
-      const json = await response.json();
-      if (!response.ok) {
-        throw new Error(JSON.stringify(json));
-      }
-      return json;
-    }
-    fetchSelect()
+    fetchJson(`/api/comment/list?parentId=${pObj.parentId}`, {})
       .then((result) => {
         setCommentList(result);
       })
@@ -27,15 +26,7 @@ export default function Comment({ parentId, comments }) {
   }
 
   function insertComment(pObj) {
-    async function fetchInsert() {
-      const response = await fetch("/api/comment/new", { method: "POST", body: JSON.stringify({ comment: pObj.comment, parentId: pObj.parentId }) });
-      const json = await response.json();
-      if (!response.ok) {
-        throw new Error(JSON.stringify(json));
-      }
-      return json;
-    }
-    fetchInsert()
+    fetchJson("/api/comment/new", { method: "POST", body: JSON.stringify({ comment: pObj.comment, parentId: pObj.parentId }) })
       .then((result) => {
         selectCommentList({ parentId: pObj.parentId });
         setComment("");
@@ -53,7 +44,7 @@ export default function Comment({ parentId, comments }) {
   return (
     <div>
       <hr></hr>
-      {commentList.length > 0 ? commentList.map((row, idx) => <p key={row._id}>{row.content}</p>) : "댓글없음"}
+      {commentList.length > 0 ? commentList.map((row, idx) => <p key={row._id}>{row.content}</p>) : <p>댓글이 없습니다.</p>}
       <input
         value={comment}
         ref={inputRef}
