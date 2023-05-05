@@ -27,7 +27,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ resMsg: "체크완료" });
     } catch (error) {
       console.log("DB수정에러", error);
-      return res.status(500).json(error);
+      return res.status(500).json({ resMsg: "수정실패" });
     }
   } else {
     return res.status(200).redirect("/mongodb-list");

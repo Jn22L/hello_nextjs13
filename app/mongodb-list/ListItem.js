@@ -5,10 +5,6 @@ import { fetchJson } from "@/util/nj-common";
 export default function ListItem({ result, session }) {
   const spanStyle = { cursor: "pointer", display: "inline-block", width: "80%", textAlign: "right", }; // prettier-ignore
 
-  console.log(result);
-
-  result.complete === "Y" ? "#FFA500" : "white";
-
   function handleDelete(e, row) {
     fetchJson("/api/post/delete", { method: "DELETE", body: JSON.stringify({ _id: row._id, author: row.author ?? "" }) })
       .then((json) => {
@@ -42,8 +38,8 @@ export default function ListItem({ result, session }) {
         alert(json.resMsg);
       })
       .catch((error) => {
-        console.log("에러", json);
-        alert(JSON.parse(error.message).resMsg);
+        console.log("에러", error);
+        //alert(JSON.parse(error.message).resMsg);
       });
   }
 
@@ -53,7 +49,6 @@ export default function ListItem({ result, session }) {
         <div className="list-item" style={{ background: row.complete === "Y" ? "#FFA500" : "white" }} key={idx}>
           {/* prettier-ignore */ <Link href={`/mongodb-detail/${row._id.toString()}`}><h4>{row.title}</h4></Link>}
           {session && <Link href={`/mongodb-edit/${row._id}`}>✏️</Link>}
-          {/* prettier-ignore */ session && (<span style={{ cursor: "pointer" }} onClick={(e) => handleDelete(e, row)}>🗑️</span>)}
           {/* prettier-ignore */ session && (<span style={{ cursor: "pointer" }} onClick={(e) => handleDelete(e, row)}>🗑️</span>)}
           {/* prettier-ignore */ <span style={spanStyle} data-complete={row.complete} onClick={(e) => handleCompleteOnClick(e, row)}>✔️</span>}
           <p>{row.content}</p>

@@ -7,7 +7,7 @@ import { authOptions } from "/pages/api/auth/[...nextauth].js";
 import { getServerSession } from "next-auth";
 
 //export const dynamic = "force-dynamic";
-export const revalidate = 1;
+export const revalidate = 0;
 
 export default async function List() {
   let session = await getServerSession(authOptions);
@@ -16,6 +16,9 @@ export default async function List() {
   const db = (await connectDB).db("forum");
   //await db.collection("post").getPlanCache().clear(); // Removes all cached query plans // 에러남
   let result = await db.collection("post").find().toArray();
+
+  console.log(result);
+
   return (
     <div>
       <ListItem result={result} session={session} />
