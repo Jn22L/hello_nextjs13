@@ -34,11 +34,11 @@ export default function ListItem({ result, session }) {
 
     fetchJson("/api/post/complete", { method: "POST", cache: "no-store", body: JSON.stringify({ _id: row._id, complete: e.target.dataset.complete }) })
       .then((json) => {
-        console.log("수정완료", json);
-        alert(json.resMsg);
+        console.log("OK", json);
+        //alert(json.resMsg);
       })
       .catch((error) => {
-        console.log("에러", error);
+        console.log("Error", error);
         //alert(JSON.parse(error.message).resMsg);
       });
   }
