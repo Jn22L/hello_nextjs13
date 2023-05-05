@@ -31,7 +31,14 @@ export default function ListItem({ result, session }) {
           {/* prettier-ignore */ <Link href={`/mongodb-detail/${row._id.toString()}`}><h4>{row.title}</h4></Link>}
           {session && <Link href={`/mongodb-edit/${row._id}`}>✏️</Link>}
           {/* prettier-ignore */ session && (<span style={{ cursor: "pointer" }} onClick={(e) => handleDelete(e, row)}>🗑️</span>)}
-          {/* prettier-ignore */ <span style={{ spanStyle }} onClick={(e) => {(e) => handleOnClick(e);}}>✔️</span>}
+          <span
+            style={spanStyle}
+            onClick={(e) => {
+              handleOnClick(e);
+            }}
+          >
+            ✔️
+          </span>
           <p>{row.content}</p>
         </div>
       ))}
