@@ -6,6 +6,7 @@ export default async function handler(req, res) {
   let session = await getServerSession(req, res, authOptions);
   if (session !== null) {
     req.body.author = session.user.email;
+    req.body.complete = "N";
   }
   if (req.method == "POST") {
     if (req.body.title === "") {

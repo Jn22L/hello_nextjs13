@@ -6,7 +6,8 @@ import ListItem from "./ListItem";
 import { authOptions } from "/pages/api/auth/[...nextauth].js";
 import { getServerSession } from "next-auth";
 
-export const dynamic = "force-dynamic";
+//export const dynamic = "force-dynamic";
+export const revalidate = 1;
 
 export default async function List() {
   let session = await getServerSession(authOptions);
