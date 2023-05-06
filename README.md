@@ -57,3 +57,8 @@ Route (app)                                Size     First Load JS
 ┌ ○ /                                      181 B          74.4 kB
 ├ λ /mongodb-list                          1.22 kB        75.4 kB
 ```
+
+4. export const revalidate = 0 했는데 계속 캐시에서 가져오는 문제
+
+- 아직 next.js 의 버그인듯 함
+- 참조: https://github.com/vercel/next.js/discussions/42290
