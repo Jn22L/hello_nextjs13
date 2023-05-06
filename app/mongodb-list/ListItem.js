@@ -8,6 +8,10 @@ export default function ListItem({ result, session }) {
   let nowYYYYMMDD = dayjs().format("YYYYMMDD");
 
   function handleDelete(e, row) {
+    if (!confirm("삭제 할까요?")) {
+      return;
+    }
+
     fetchJson("/api/post/delete", { method: "DELETE", body: JSON.stringify({ _id: row._id, author: row.author ?? "" }) })
       .then((json) => {
         alert(json.resMsg);
