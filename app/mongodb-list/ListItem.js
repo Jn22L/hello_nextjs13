@@ -5,9 +5,7 @@ import dayjs from "dayjs";
 
 export default function ListItem({ result, session }) {
   const spanStyle = { cursor: "pointer", display: "inline-block", width: "80%", textAlign: "right", }; // prettier-ignore
-  let yesterdayYYYYMMDD = dayjs().subtract(1, "day").format("YYYYMMDD");
-
-  console.log("어제", yesterdayYYYYMMDD);
+  let nowYYYYMMDD = dayjs().format("YYYYMMDD");
 
   function handleDelete(e, row) {
     fetchJson("/api/post/delete", { method: "DELETE", body: JSON.stringify({ _id: row._id, author: row.author ?? "" }) })
@@ -24,9 +22,6 @@ export default function ListItem({ result, session }) {
   }
 
   function handleCompleteOnClick(e, row) {
-    console.log(e.target.dataset.complete);
-    let curBg = e.target.parentElement.style.background;
-
     if (e.target.dataset.complete === "N") {
       e.target.parentElement.style.background = "#FFA500";
       e.target.dataset.complete = nowYYYYMMDD;
@@ -34,16 +29,13 @@ export default function ListItem({ result, session }) {
       e.target.parentElement.style.background = "white";
       e.target.dataset.complete = "N";
     }
-    //e.target.parentElement.style.background = curBg === "white" || curBg === "" ? "#FFA500" : "white";
 
     fetchJson("/api/post/complete", { method: "POST", cache: "no-store", body: JSON.stringify({ _id: row._id, complete: e.target.dataset.complete }) })
       .then((json) => {
         console.log("OK", json);
-        //alert(json.resMsg);
       })
       .catch((error) => {
         console.log("Error", error);
-        //alert(JSON.parse(error.message).resMsg);
       });
   }
 
