@@ -5,9 +5,9 @@ import dayjs from "dayjs";
 
 export default function ListItem({ result, session }) {
   const spanStyle = { cursor: "pointer", display: "inline-block", width: "80%", textAlign: "right", }; // prettier-ignore
-  let yesterdayYYYYMMDD = dayjs().subtract(1, "day").format("YYYYMMDD");
+  let nowYYYYMMDD = dayjs().format("YYYYMMDD");
 
-  console.log("어제", yesterdayYYYYMMDD);
+  console.log(result);
 
   function handleDelete(e, row) {
     fetchJson("/api/post/delete", { method: "DELETE", body: JSON.stringify({ _id: row._id, author: row.author ?? "" }) })

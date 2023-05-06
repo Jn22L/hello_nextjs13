@@ -24,12 +24,13 @@ export default async function RootLayout({ children }) {
       <body className={inter.className}>
         <div className="navbar">
           <Link href="/" className="logo">
-            LightHappyJ
+            Home
           </Link>
-          <Link href="/mongodb-list">글목록</Link>
+          <Link href="/mongodb-list">할일</Link>
+          <Link href="/mongodb-done">완료</Link>
           {session ? (
             <span>
-              <Link href="/mongodb-write">글작성</Link>
+              <Link href="/mongodb-write">등록</Link>
               {session.user.name}
               <LogoutBtn />
             </span>

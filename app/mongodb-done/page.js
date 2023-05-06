@@ -1,13 +1,9 @@
-import Link from "next/link.js";
 import { connectDB } from "@/lib/mongodb.js";
-import DetailLink from "./DetailLink";
 import ListItem from "./ListItem";
-import dayjs from "dayjs";
-
 import { authOptions } from "/pages/api/auth/[...nextauth].js";
 import { getServerSession } from "next-auth";
+import dayjs from "dayjs";
 
-//export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function List() {
@@ -17,7 +13,7 @@ export default async function List() {
   const db = (await connectDB).db("forum");
   let result = await db
     .collection("post")
-    .find({ $or: [{ complete: "N" }, { complete: { $gte: yesterdayYYYYMMDD } }] }) // 미완료 or 어제완료한것
+    .find({ $and: [{ complete: { $ne: "N" } }, { complete: { $lt: yesterdayYYYYMMDD } }] }) // 엊그제 완료건까지
     .toArray();
 
   return (
