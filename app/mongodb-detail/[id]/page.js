@@ -1,6 +1,7 @@
 import { connectDB } from "@/lib/mongodb.js";
 import { ObjectId } from "mongodb";
 import Comment from "./Comment";
+import { notFound } from "next/navigation";
 
 export default async function Detail({ params, searchParams }) {
   const db = (await connectDB).db("forum");
@@ -9,6 +10,10 @@ export default async function Detail({ params, searchParams }) {
     .collection("comment")
     .find({ parentId: new ObjectId(params.id) })
     .toArray();
+
+  if (result === null) {
+    return notFound();
+  }
 
   return (
     <div>
