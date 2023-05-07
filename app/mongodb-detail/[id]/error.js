@@ -1,4 +1,5 @@
 "use client";
+// error.js 는 clien component 로 만들어야 한다.
 export default function Error({ error, reset }) {
   return (
     <div>
