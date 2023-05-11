@@ -3,6 +3,8 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import LoginBtn from "./LoginBtn";
 import LogoutBtn from "./LogoutBtn";
+import DarkMode from "./DarkMode";
+import { cookies } from "next/headers";
 
 import { authOptions } from "/pages/api/auth/[...nextauth].js";
 import { getServerSession } from "next-auth";
@@ -15,13 +17,14 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
+  let cookie = cookies().get("mode");
   let session = await getServerSession(authOptions);
-  console.log("layout세션", session);
+  //console.log("layout세션", session);
   //console.log(session.user.name);
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={cookie != undefined && cookie.value == "dark" ? "dark-mode" : ""}>
         <div className="navbar">
           <Link href="/" className="logo">
             Home
@@ -37,6 +40,7 @@ export default async function RootLayout({ children }) {
           ) : (
             <LoginBtn />
           )}
+          <DarkMode darkMode={cookie} />
         </div>
         {children}
       </body>
