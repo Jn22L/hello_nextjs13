@@ -23,8 +23,9 @@ export default function DarkMode({ darkMode }) {
           document.cookie = "mode=light; max-age=" + 3600 * 24 * 400;
           router.refresh();
         }
-      }}>
-      {darkMode.value == "light" ? "🌙" : "☀️"}
+      }}
+    >
+      {darkMode?.value == "light" ? "🌙" : "☀️"}
     </span>
   );
 }
