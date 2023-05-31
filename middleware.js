@@ -24,4 +24,17 @@ export async function middleware(req) {
     console.log(req.headers.get("sec-ch-ua-platform"));
     return NextResponse.next();
   }
+
+  req.cookies.get("쿠키이름"); //출력
+  req.cookies.has("쿠키이름"); //존재확인
+  req.cookies.delete("쿠키이름"); //삭제
+
+  const response = NextResponse.next();
+  response.cookies.set({
+    name: "mode2",
+    value: "dark",
+    maxAge: 3600,
+    httpOnly: true,
+  });
+  return response; //쿠키생성
 }
