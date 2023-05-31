@@ -7,6 +7,8 @@ export async function middleware(req) {
   // console.log("미들웨어:headers =====>", req.headers);
   // console.log(req.nextUrl.pathname);
 
+  // JWT 방식일때만 getToken 가능
+  // .env 파일에 NEXTAUTH_SECRET 설정이 있어야 함
   const session = await getToken({ req: req });
   if (req.nextUrl.pathname.startsWith("/mongodb-write")) {
     if (session === null) {
