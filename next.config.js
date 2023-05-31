@@ -2,6 +2,7 @@
 const nextConfig = {
   experimental: {
     appDir: true,
+    serverActions: true,
   },
   env: {
     MYSQL_HOST: "127.0.0.1",
